@@ -1,0 +1,6 @@
+default: test
+
+test:
+	go vet ./...
+	go list ./... | grep -v vendor | xargs golint
+	go test ./...
