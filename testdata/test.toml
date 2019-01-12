@@ -1,0 +1,4 @@
+[[rule]]
+type = "contain"
+condition = "warning"
+exit_code = 254
