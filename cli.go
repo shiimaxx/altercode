@@ -7,6 +7,7 @@ import (
 	"io"
 	"os/exec"
 	"strings"
+	"syscall"
 
 	"github.com/BurntSushi/toml"
 )
@@ -90,7 +91,23 @@ func (c *CLI) Run(args []string) int {
 	cmdName, cmdArgs := flags.Args()[0], flags.Args()[1:]
 	cmd := exec.CommandContext(context.TODO(), cmdName, cmdArgs...)
 
-	out, _ := cmd.Output()
+	out, err := cmd.Output()
+	if err != nil {
+		if execErr, ok := err.(*exec.Error); ok {
+			if execErr.Err == exec.ErrNotFound {
+				fmt.Fprintln(c.errStream, err.Error())
+				return ExitCodeError
+			}
+		}
+
+		if exitErr, ok := err.(*exec.ExitError); ok {
+			fmt.Fprintf(c.errStream, string(exitErr.Stderr))
+			if ws, ok := exitErr.ProcessState.Sys().(syscall.WaitStatus); ok {
+				return ws.ExitStatus()
+			}
+			return ExitCodeError
+		}
+	}
 
 	fmt.Fprint(c.outStream, string(out))
 
