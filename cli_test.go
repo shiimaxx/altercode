@@ -10,7 +10,7 @@ func TestRun(t *testing.T) {
 	outStream, errStream := new(bytes.Buffer), new(bytes.Buffer)
 	cli := &CLI{outStream: outStream, errStream: errStream}
 
-	args := strings.Split("altercode -contain 'warning' -exit-code 254 -- testdata/bin/test_command warning", " ")
+	args := strings.Split("altercode -contain warning -exit-code 254 -- testdata/bin/test_command warning", " ")
 	if got, want := cli.Run(args), 254; got != want {
 		t.Errorf("got %d, want %d", got, want)
 	}
