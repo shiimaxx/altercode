@@ -1,6 +1,8 @@
 altercode
 =========
 
+[![Build Status](https://travis-ci.org/shiimaxx/altercode.svg?branch=master)](https://travis-ci.org/shiimaxx/altercode)
+
 Wrap command and can alter exit code.
 
 ## Description
