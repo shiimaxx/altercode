@@ -12,14 +12,15 @@ A command line tool that handles exit code for command specified by an argument.
 
 ## Usage
 
-Execute `command` and exit with 1 status code when command output contains “Error”. This is most simple case.
+Execute `command` and exit with 1 status code when command output contains “Error” otherwise, exit with an original status code.
+This is most simple case.
 
 ```
 altercode -contain "Error" -exit-code 1 -- command
 ```
 
-When multiple rules, you can write rules in a configuration file and run a command with specifying that file in `-c` option.
-In the following case, created a configuration file named "altercode.toml". This result will same to above example.    
+you can write rules in a configuration file and run a command with specifying that file in `-c` option.
+In the following case, created a configuration file named "altercode.toml". This result will same to above example.
 
 ```
 altercode -c altercode.toml -- command
@@ -32,6 +33,20 @@ condition = "Error"
 exit_code = 1
 ```
 
+When multiple rules, should define multiple rules in a configuration file. Command line options do not support multiple rules. 
+
+```toml
+[[rule]]
+type = "contain"
+condition = "Error"
+exit_code = 1
+
+[[rule]]
+type = "contain"
+condition = "Warning"
+exit_code = 1
+```
+
 ## License
 
 [MIT](https://github.com/shiimaxx/altercode/blob/master/LICENCE)
@@ -40,4 +55,3 @@ exit_code = 1
 ## Author
 
 [shiimaxx](https://github.com/shiimaxx)
-
