@@ -1,0 +1,9 @@
+[[rule]]
+type = "contain"
+condition = "warning"
+exit_code = 254
+
+[[rule]]
+type = "contain"
+condition = "deprecated"
+exit_code = 253
