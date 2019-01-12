@@ -67,14 +67,19 @@ func (c *CLI) Run(args []string) int {
 		return ExitCodeError
 	}
 
+	var r rules
+	if contain != "" {
+		r.Rule = []rule{{}}
+		r.Rule[0].CondType = typeContain
+		r.Rule[0].Condition = contain
+		r.Rule[0].ExitCode = exitCode
+	}
+
 	if config != "" {
-		var r rules
 		if _, err := toml.DecodeFile(config, &r); err != nil {
 			fmt.Fprintf(c.errStream, "decode %s failed: %s\n", config, err.Error())
 			return ExitCodeError
 		}
-		contain = r.Rule[0].Condition
-		exitCode = r.Rule[0].ExitCode
 	}
 
 	if len(flags.Args()) < 1 {
@@ -89,8 +94,10 @@ func (c *CLI) Run(args []string) int {
 
 	fmt.Fprint(c.outStream, string(out))
 
-	if strings.Contains(string(out), contain) {
-		return exitCode
+	for _, rr := range r.Rule {
+		if strings.Contains(string(out), rr.Condition) {
+			return rr.ExitCode
+		}
 	}
 
 	return ExitCodeOK
