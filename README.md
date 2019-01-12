@@ -33,7 +33,8 @@ condition = "Error"
 exit_code = 1
 ```
 
-When multiple rules, should define multiple rules in a configuration file. Command line options do not support multiple rules. 
+When multiple rules, should define multiple rules in a configuration file. Command line options do not support multiple rules.
+Rules priority is same to definition order.   
 
 ```toml
 [[rule]]
