@@ -60,7 +60,7 @@ go install github.com/shiimaxx/altercode
 
 ## License
 
-[MIT](https://github.com/shiimaxx/altercode/blob/master/LICENCE)
+[MIT](https://github.com/shiimaxx/altercode/blob/master/LICENSE)
 
 
 ## Author
