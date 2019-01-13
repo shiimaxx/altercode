@@ -4,4 +4,4 @@ package main
 const Name string = "altercode"
 
 // Version is the application version
-const Version string = "pre-release"
+const Version string = "0.1.0"
