@@ -50,6 +50,14 @@ condition = "Warning"
 exit_code = 1
 ```
 
+
+## Install
+
+```
+go install github.com/shiimaxx/altercode
+```
+
+
 ## License
 
 [MIT](https://github.com/shiimaxx/altercode/blob/master/LICENCE)
