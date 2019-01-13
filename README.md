@@ -2,6 +2,8 @@ altercode
 =========
 
 [![Build Status](https://travis-ci.org/shiimaxx/altercode.svg?branch=master)](https://travis-ci.org/shiimaxx/altercode)
+[![Go Report Card](https://goreportcard.com/badge/github.com/shiimaxx/altercode)](https://goreportcard.com/report/github.com/shiimaxx/altercode)
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Wrap command and can alter exit code.
 
