@@ -10,6 +10,30 @@ import (
 var cmdOutputPrefix = "test_command"
 var cmdErrOutputPrefix = "test_error_command"
 
+func TestRun_argsValidation(t *testing.T) {
+	outStream, errStream := new(bytes.Buffer), new(bytes.Buffer)
+	cli := &CLI{outStream: outStream, errStream: errStream}
+
+	var cases = []struct {
+		cmd  string
+		want int
+	}{
+		{cmd: "altercode -contain warning -exit-code 254 -c testdata/test.toml -- testdata/bin/test_command warning", want: 2},
+		{cmd: "altercode -- testdata/bin/test_command warning", want: 2},
+		{cmd: "altercode -contain warning -exit-code 254", want: 2},
+		{cmd: "altercode -exit-code 254 -- testdata/bin/test_command warning", want: 2},
+	}
+
+	for _, c := range cases {
+		t.Run(c.cmd, func(t *testing.T) {
+			args := strings.Split(c.cmd, " ")
+			if got, want := cli.Run(args), c.want; got != want {
+				t.Errorf("got %d, want %d", got, want)
+			}
+		})
+	}
+}
+
 func TestRun(t *testing.T) {
 	outStream, errStream := new(bytes.Buffer), new(bytes.Buffer)
 	cli := &CLI{outStream: outStream, errStream: errStream}

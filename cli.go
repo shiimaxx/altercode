@@ -63,7 +63,7 @@ func (c *CLI) Run(args []string) int {
 		return ExitCodeOK
 	}
 
-	if contain != "" && config != "" {
+	if (contain != "" && config != "") || (contain == "" && config == "") {
 		fmt.Fprintln(c.errStream, "invalid err")
 		return ExitCodeError
 	}
