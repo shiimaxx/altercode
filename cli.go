@@ -93,13 +93,6 @@ func (c *CLI) Run(args []string) int {
 
 	out, err := cmd.Output()
 	if err != nil {
-		if execErr, ok := err.(*exec.Error); ok {
-			if execErr.Err == exec.ErrNotFound {
-				fmt.Fprintln(c.errStream, err.Error())
-				return ExitCodeError
-			}
-		}
-
 		if exitErr, ok := err.(*exec.ExitError); ok {
 			fmt.Fprintf(c.errStream, string(exitErr.Stderr))
 			if ws, ok := exitErr.ProcessState.Sys().(syscall.WaitStatus); ok {
@@ -107,6 +100,9 @@ func (c *CLI) Run(args []string) int {
 			}
 			return ExitCodeError
 		}
+
+		fmt.Fprintln(c.errStream, err.Error())
+		return ExitCodeError
 	}
 
 	fmt.Fprint(c.outStream, string(out))
